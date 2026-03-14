@@ -1,104 +1,116 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelis — Prospect & Outreach System</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-tertiary);min-height:100vh}
-.app{display:grid;grid-template-columns:180px 1fr;min-height:100vh}
-.sidebar{background:var(--color-background-primary);border-right:0.5px solid var(--color-border-tertiary);padding:12px 0}
-.logo{padding:8px 14px 16px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:8px}
-.logo-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
-.logo-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+:root{
+  --bg:#ffffff;--surf:#f5f5f3;--ter:#f0efec;
+  --b:rgba(0,0,0,0.09);--b2:rgba(0,0,0,0.18);
+  --t1:#1a1a18;--t2:#6b6b65;--t3:#9e9e97;
+  --r:8px;--rl:12px;
+  --green-bg:#e8f5e9;--green-t:#2e7d32;
+  --amber-bg:#fff8e1;--amber-t:#f57f17;
+  --blue-bg:#e3f2fd;--blue-t:#1565c0;
+  --red-bg:#fce4ec;--red-t:#c62828;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--ter);color:var(--t1);min-height:100vh}
+.app{display:grid;grid-template-columns:190px 1fr;min-height:100vh}
+.sidebar{background:var(--bg);border-right:1px solid var(--b);padding:12px 0}
+.logo{padding:10px 16px 18px;border-bottom:1px solid var(--b);margin-bottom:10px}
+.logo-name{font-size:15px;font-weight:600;color:var(--t1)}
+.logo-sub{font-size:11px;color:var(--t3);margin-top:2px}
 .nav{display:flex;flex-direction:column;gap:2px;padding:0 8px}
-.ni{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--border-radius-md);font-size:12px;color:var(--color-text-secondary);cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left}
-.ni:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
-.ni.on{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500}
-.ns{font-size:10px;color:var(--color-text-tertiary);letter-spacing:.1em;text-transform:uppercase;padding:12px 10px 4px;margin-top:4px}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r);font-size:13px;color:var(--t2);cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left}
+.ni:hover{background:var(--surf);color:var(--t1)}
+.ni.on{background:var(--surf);color:var(--t1);font-weight:500}
+.ns{font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:14px 10px 4px;margin-top:4px}
 .main{display:flex;flex-direction:column;overflow:hidden}
-.topbar{background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.tb-title{font-size:15px;font-weight:500}
-.tb-sub{font-size:11px;color:var(--color-text-tertiary);margin-top:1px}
-.content{padding:16px 20px;overflow-y:auto;flex:1}
+.topbar{background:var(--bg);border-bottom:1px solid var(--b);padding:12px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tb-title{font-size:16px;font-weight:600}
+.tb-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.content{padding:18px 22px;overflow-y:auto;flex:1;max-height:calc(100vh - 56px)}
 .tab{display:none}.tab.on{display:block}
-.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px;margin-bottom:14px}
-.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.ct{font-size:13px;font-weight:500;color:var(--color-text-primary)}
-.cs{font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+.card{background:var(--bg);border:1px solid var(--b);border-radius:var(--rl);padding:16px;margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ct{font-size:14px;font-weight:600;color:var(--t1)}
+.cs{font-size:11px;color:var(--t3);margin-top:2px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.fl{font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
-select,input,textarea{width:100%;font-family:var(--font-sans);font-size:13px;color:var(--color-text-primary);background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:7px 10px;outline:none;transition:border-color .15s}
-select:focus,input:focus,textarea:focus{border-color:var(--color-border-primary)}
+.fl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+select,input,textarea{width:100%;font-family:inherit;font-size:13px;color:var(--t1);background:var(--surf);border:1px solid var(--b);border-radius:var(--r);padding:8px 10px;outline:none;transition:border-color .15s}
+select:focus,input:focus,textarea:focus{border-color:var(--t2)}
 textarea{resize:none;line-height:1.55}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:12px;color:var(--color-text-primary);background:var(--color-background-primary);cursor:pointer;transition:all .15s;font-family:var(--font-sans)}
-.btn:hover{background:var(--color-background-secondary)}
-.btn.p{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--r);border:1px solid var(--b2);font-size:12px;color:var(--t1);background:var(--bg);cursor:pointer;transition:all .15s;font-family:inherit}
+.btn:hover{background:var(--surf)}
+.btn.p{background:var(--t1);color:white;border-color:var(--t1)}
 .btn.p:hover{opacity:.85}
-.btn.g{background:var(--color-background-success);color:var(--color-text-success);border-color:var(--color-border-success)}
 .btn.wa{background:#1FAF38;color:white;border-color:#1FAF38}
 .btn.wa:hover{opacity:.88}
 .btn.ig{background:#E1306C;color:white;border-color:#E1306C}
 .btn.ig:hover{opacity:.88}
-.btn.em{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
-.tag{display:inline-block;padding:2px 7px;border-radius:100px;font-size:10px;font-weight:500}
-.tg{background:var(--color-background-success);color:var(--color-text-success)}
-.ta{background:var(--color-background-warning);color:var(--color-text-warning)}
-.tb2{background:var(--color-background-info);color:var(--color-text-info)}
-.tr{background:var(--color-background-danger);color:var(--color-text-danger)}
-.ts{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.btn.em{background:var(--blue-bg);color:var(--blue-t);border-color:#90caf9}
+.tag{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
+.tg{background:var(--green-bg);color:var(--green-t)}
+.ta{background:var(--amber-bg);color:var(--amber-t)}
+.tb2{background:var(--blue-bg);color:var(--blue-t)}
+.tr{background:var(--red-bg);color:var(--red-t)}
+.ts{background:var(--surf);color:var(--t2)}
 table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;font-size:10px;color:var(--color-text-tertiary);font-weight:500;padding:0 10px 7px;border-bottom:0.5px solid var(--color-border-tertiary);letter-spacing:.05em;text-transform:uppercase}
-td{padding:9px 10px;border-bottom:0.5px solid var(--color-border-tertiary);vertical-align:middle}
+th{text-align:left;font-size:10px;color:var(--t3);font-weight:600;padding:0 10px 8px;border-bottom:1px solid var(--b);letter-spacing:.05em;text-transform:uppercase}
+td{padding:10px 10px;border-bottom:1px solid var(--b);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--color-background-secondary)}
-.score-bar{width:50px;height:4px;background:var(--color-background-tertiary);border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:6px}
-.score-fill{height:100%;border-radius:2px;background:var(--color-text-primary)}
+tr:hover td{background:var(--surf)}
+.score-bar{width:52px;height:4px;background:var(--ter);border-radius:2px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:6px}
+.score-fill{height:100%;border-radius:2px;background:var(--t1)}
 .pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.pill{padding:4px 11px;border:0.5px solid var(--color-border-tertiary);border-radius:100px;font-size:11px;color:var(--color-text-secondary);cursor:pointer;transition:all .15s;background:none}
-.pill:hover{border-color:var(--color-border-primary)}
-.pill.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
-.msg-box{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;background:var(--color-background-secondary);font-size:13px;color:var(--color-text-secondary);line-height:1.6;position:relative;margin-bottom:8px;white-space:pre-line}
-.msg-label{font-size:10px;color:var(--color-text-tertiary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
-.divider{height:0.5px;background:var(--color-border-tertiary);margin:14px 0}
-.step-list{display:flex;flex-direction:column;gap:8px}
+.pill{padding:5px 12px;border:1px solid var(--b);border-radius:100px;font-size:11px;color:var(--t2);cursor:pointer;transition:all .15s;background:none}
+.pill:hover{border-color:var(--t2)}
+.pill.on{background:var(--t1);color:white;border-color:var(--t1)}
+.msg-box{border:1px solid var(--b);border-radius:var(--r);padding:13px;background:var(--surf);font-size:13px;color:var(--t2);line-height:1.65;position:relative;margin-bottom:8px;white-space:pre-line}
+.msg-label{font-size:10px;color:var(--t3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.divider{height:1px;background:var(--b);margin:14px 0}
+.step-list{display:flex;flex-direction:column;gap:10px}
 .step{display:flex;gap:10px;align-items:flex-start}
-.step-num{width:22px;height:22px;border-radius:50%;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;color:var(--color-text-primary)}
-.step-body{font-size:12px;color:var(--color-text-secondary);line-height:1.6;padding-top:2px}
-.step-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
-.query-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);font-size:11px;color:var(--color-text-secondary);cursor:pointer;margin:3px;transition:all .15s;background:var(--color-background-primary)}
-.query-chip:hover{border-color:var(--color-border-primary);color:var(--color-text-primary)}
-.seq-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;margin-bottom:8px}
-.seq-day{font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.seq-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
-.seq-meta{font-size:11px;color:var(--color-text-tertiary)}
-.copied{color:var(--color-text-success) !important;background:var(--color-background-success) !important;border-color:var(--color-border-success) !important}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--surf);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;color:var(--t1)}
+.step-body{font-size:12px;color:var(--t2);line-height:1.6;padding-top:3px}
+.step-title{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.query-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px solid var(--b);border-radius:var(--r);font-size:11px;color:var(--t2);cursor:pointer;margin:3px;transition:all .15s;background:var(--bg)}
+.query-chip:hover{border-color:var(--t2);color:var(--t1)}
+.seq-card{border:1px solid var(--b);border-radius:var(--r);padding:13px;margin-bottom:8px}
+.copied{color:var(--green-t) !important;background:var(--green-bg) !important;border-color:#a5d6a7 !important}
 </style>
-
+</head>
+<body>
 <div class="app">
 <div class="sidebar">
   <div class="logo">
     <div class="logo-name">Aurelis</div>
-    <div class="logo-sub">Prospect + Outreach</div>
+    <div class="logo-sub">Prospect + Outreach OS</div>
   </div>
   <div class="nav">
     <div class="ns">Prospecting</div>
     <button class="ni on" onclick="go('scraper',this)">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       Lead scraper
     </button>
     <button class="ni" onclick="go('leads',this)">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       Lead list
     </button>
     <div class="ns">Outreach</div>
     <button class="ni" onclick="go('builder',this)">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M1 6l7 4 7-4" stroke="currentColor" stroke-width="1.2"/></svg>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M1 6l7 4 7-4" stroke="currentColor" stroke-width="1.3"/></svg>
       Message builder
     </button>
     <button class="ni" onclick="go('sequence',this)">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h7M3 12h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       Follow-up sequence
     </button>
     <button class="ni" onclick="go('scripts',this)">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       Scripts library
     </button>
   </div>
@@ -106,14 +118,14 @@ tr:hover td{background:var(--color-background-secondary)}
 
 <div class="main">
 <div class="topbar">
-  <div><div class="tb-title" id="ttitle">Lead scraper</div><div class="tb-sub" id="tsub">Find clinic prospects in Nagpur</div></div>
-  <div style="display:flex;gap:6px">
-    <button class="btn" onclick="sendPrompt('Give me 20 more dental clinic lead search strategies for Nagpur that I can use for Aurelis website outreach ↗')">More strategies ↗</button>
+  <div>
+    <div class="tb-title" id="ttitle">Lead scraper</div>
+    <div class="tb-sub" id="tsub">Find clinic prospects in Nagpur</div>
   </div>
 </div>
 <div class="content">
 
-<!-- SCRAPER TAB -->
+<!-- SCRAPER -->
 <div class="tab on" id="tab-scraper">
   <div class="card">
     <div class="ch"><div><div class="ct">Configure your search</div><div class="cs">Set filters → generate search queries → find leads manually</div></div></div>
@@ -128,7 +140,7 @@ tr:hover td{background:var(--color-background-secondary)}
         <select id="s-web"><option>No website (best)</option><option>Outdated website</option><option>Any</option></select>
       </div>
     </div>
-    <div class="row3" style="margin-bottom:14px">
+    <div class="row3" style="margin-bottom:16px">
       <div><div class="fl">Min Google rating</div>
         <select id="s-rating"><option>Any rating</option><option>3.5+</option><option>4.0+</option><option>4.5+</option></select>
       </div>
@@ -146,13 +158,13 @@ tr:hover td{background:var(--color-background-secondary)}
   </div>
 
   <div class="card" id="query-card" style="display:none">
-    <div class="ch"><div><div class="ct">Copy these queries into Google Maps / JustDial</div><div class="cs">Open each result, note: name · phone · address · has website?</div></div></div>
+    <div class="ch"><div><div class="ct">Copy these into Google Maps / JustDial</div><div class="cs">Open each result → note name · phone · has website?</div></div></div>
     <div id="query-list"></div>
     <div class="divider"></div>
     <div class="step-list">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Google Maps</div>Paste query → scroll through results → click each clinic → note phone number from listing → check if they have a website link. No website = priority lead.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">JustDial</div>Go to justdial.com → search the query → phone numbers are listed directly. Filter by "recently listed" to find newer clinics.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Instagram</div>Search the niche + location hashtag (e.g. #dentalclinicnagpur) → find active accounts → DM them directly. Active posters = warmer leads.</div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Google Maps</div>Paste query → scroll results → click each clinic → note phone number → check if website link exists. No website = priority lead.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">JustDial</div>Go to justdial.com → search query → phone numbers listed directly. Filter by "recently listed" for newer clinics.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Instagram</div>Search niche + location hashtag (e.g. #dentalclinicnagpur) → find active accounts → DM directly. Active posters = warmer leads.</div></div>
       <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Get WhatsApp number</div>Most clinic listings show mobile numbers. Add to WhatsApp → check if they have a business profile. That's your direct contact.</div></div>
     </div>
   </div>
@@ -160,7 +172,7 @@ tr:hover td{background:var(--color-background-secondary)}
   <div id="leads-preview" style="display:none">
     <div class="card">
       <div class="ch">
-        <div><div class="ct" id="leads-title">Leads found</div><div class="cs">Click a lead to build outreach instantly</div></div>
+        <div><div class="ct" id="leads-title">Leads found</div><div class="cs">Click Draft to build outreach instantly</div></div>
         <div style="display:flex;gap:6px">
           <button class="btn" onclick="exportCSV()">Export CSV</button>
           <button class="btn p" onclick="go('leads',document.querySelector('[onclick*=leads]'))">View in lead list →</button>
@@ -174,13 +186,15 @@ tr:hover td{background:var(--color-background-secondary)}
   </div>
 </div>
 
-<!-- LEAD LIST TAB -->
+<!-- LEAD LIST -->
 <div class="tab" id="tab-leads">
   <div class="card" style="padding:0">
-    <div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;justify-content:space-between">
-      <div><div class="ct">All leads</div><div class="cs" id="leads-count-label">47 prospects · 8 replied · 1 closed</div></div>
+    <div style="padding:14px 16px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between">
+      <div><div class="ct">All leads</div><div class="cs">47 prospects · 8 replied · 1 closed</div></div>
       <div style="display:flex;gap:6px">
-        <select style="width:auto;font-size:11px;padding:4px 8px" id="filter-status" onchange="renderLeadList()"><option value="">All status</option><option value="hot">Hot</option><option value="warm">Warm</option><option value="new">New</option><option value="closed">Closed</option></select>
+        <select style="width:auto;font-size:11px;padding:5px 8px" id="filter-status" onchange="renderLeadList()">
+          <option value="">All status</option><option value="hot">Hot</option><option value="warm">Warm</option><option value="new">New</option><option value="closed">Closed</option>
+        </select>
         <button class="btn p" onclick="go('builder',document.querySelector('[onclick*=builder]'))">+ New outreach</button>
       </div>
     </div>
@@ -191,16 +205,16 @@ tr:hover td{background:var(--color-background-secondary)}
   </div>
 </div>
 
-<!-- MESSAGE BUILDER TAB -->
+<!-- MESSAGE BUILDER -->
 <div class="tab" id="tab-builder">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     <div>
       <div class="card">
-        <div class="ct" style="margin-bottom:12px">Configure message</div>
-        <div style="margin-bottom:8px"><div class="fl">Clinic name</div><input id="m-clinic" type="text" placeholder="e.g. Bright Smile Dental Clinic"></div>
-        <div style="margin-bottom:8px"><div class="fl">Doctor name</div><input id="m-doc" type="text" placeholder="e.g. Dr. Priya Sharma"></div>
-        <div style="margin-bottom:8px"><div class="fl">Their phone (for WhatsApp link)</div><input id="m-phone" type="text" placeholder="e.g. 9876543210"></div>
-        <div style="margin-bottom:8px"><div class="fl">Pain point</div>
+        <div class="ct" style="margin-bottom:14px">Configure message</div>
+        <div style="margin-bottom:10px"><div class="fl">Clinic name</div><input id="m-clinic" type="text" placeholder="e.g. Bright Smile Dental Clinic"></div>
+        <div style="margin-bottom:10px"><div class="fl">Doctor name</div><input id="m-doc" type="text" placeholder="e.g. Dr. Priya Sharma"></div>
+        <div style="margin-bottom:10px"><div class="fl">Their phone (for WhatsApp link)</div><input id="m-phone" type="text" placeholder="e.g. 9876543210"></div>
+        <div style="margin-bottom:10px"><div class="fl">Pain point</div>
           <select id="m-pain">
             <option value="noweb">No website at all</option>
             <option value="oldweb">Outdated / bad website</option>
@@ -208,70 +222,71 @@ tr:hover td{background:var(--color-background-secondary)}
             <option value="lowrev">Low Google reviews</option>
           </select>
         </div>
-        <div style="margin-bottom:14px"><div class="fl">Your name / brand</div><input id="m-brand" type="text" placeholder="e.g. Abhi · Aurelis Digital" value="Abhi · Aurelis Digital"></div>
+        <div style="margin-bottom:16px"><div class="fl">Your name / brand</div><input id="m-brand" type="text" value="Abhi · Aurelis Digital"></div>
         <div class="pill-row">
           <button class="pill on" onclick="setPill(this,'wa')">WhatsApp</button>
           <button class="pill" onclick="setPill(this,'ig')">Instagram DM</button>
           <button class="pill" onclick="setPill(this,'email')">Email</button>
         </div>
-        <button class="btn p" style="width:100%" onclick="buildMessage()">Generate messages</button>
+        <button class="btn p" style="width:100%;justify-content:center" onclick="buildMessage()">Generate messages</button>
       </div>
     </div>
     <div id="msg-panel">
-      <div class="card" style="background:var(--color-background-secondary);border-style:dashed">
-        <div style="font-size:12px;color:var(--color-text-tertiary);text-align:center;padding:24px">Fill in the form and click<br>"Generate messages" to see your outreach</div>
+      <div class="card" style="background:var(--surf);border-style:dashed">
+        <div style="font-size:13px;color:var(--t3);text-align:center;padding:32px 16px">Fill in the form and click<br>"Generate messages"</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SEQUENCE TAB -->
+<!-- SEQUENCE -->
 <div class="tab" id="tab-sequence">
   <div class="card">
-    <div class="ch"><div><div class="ct">Follow-up sequence</div><div class="cs">4-touch campaign — never let a lead go cold</div></div>
-      <div style="display:flex;gap:6px">
-        <div><div class="fl" style="margin-bottom:3px">For clinic</div><input id="sq-clinic" type="text" placeholder="Clinic name" style="width:160px;font-size:11px"></div>
-        <div style="display:flex;align-items:flex-end"><button class="btn p" onclick="buildSequence()">Generate sequence</button></div>
+    <div class="ch">
+      <div><div class="ct">4-touch follow-up sequence</div><div class="cs">Never let a lead go cold</div></div>
+      <div style="display:flex;align-items:flex-end;gap:8px">
+        <div><div class="fl" style="margin-bottom:4px">Clinic name</div><input id="sq-clinic" type="text" placeholder="Clinic name" style="width:180px;font-size:12px"></div>
+        <button class="btn p" onclick="buildSequence()">Generate</button>
       </div>
     </div>
-    <div id="seq-out">
-      <div class="row3" style="margin-bottom:12px">
-        <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
-          <div style="font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em">Day 1</div>
-          <div style="font-size:13px;font-weight:500;margin-top:4px">Cold intro</div>
-          <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:2px">WhatsApp</div>
-        </div>
-        <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
-          <div style="font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em">Day 3</div>
-          <div style="font-size:13px;font-weight:500;margin-top:4px">Value follow-up</div>
-          <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:2px">WhatsApp</div>
-        </div>
-        <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;text-align:center">
-          <div style="font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em">Day 7</div>
-          <div style="font-size:13px;font-weight:500;margin-top:4px">Social proof</div>
-          <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:2px">Instagram DM</div>
-        </div>
+    <div class="row3" style="margin-bottom:14px">
+      <div style="border:1px solid var(--b);border-radius:var(--r);padding:12px;text-align:center">
+        <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em">Day 1</div>
+        <div style="font-size:13px;font-weight:600;margin-top:4px">Cold intro</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px">WhatsApp</div>
       </div>
-      <div id="seq-messages"></div>
-      <div style="margin-top:10px;padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:12px;color:var(--color-text-secondary)">
-        <span style="font-weight:500;color:var(--color-text-primary)">Day 14 — Final close:</span> If no reply after Day 7, send one last WhatsApp: "Hi [name], last message from my side. If you ever want a website for your clinic, I'm here. Built one last week for a Nagpur clinic — happy to show you anytime. 🙏 — Abhi"
+      <div style="border:1px solid var(--b);border-radius:var(--r);padding:12px;text-align:center">
+        <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em">Day 3</div>
+        <div style="font-size:13px;font-weight:600;margin-top:4px">Demo follow-up</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px">WhatsApp</div>
       </div>
+      <div style="border:1px solid var(--b);border-radius:var(--r);padding:12px;text-align:center">
+        <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em">Day 7</div>
+        <div style="font-size:13px;font-weight:600;margin-top:4px">Social proof</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px">Instagram DM</div>
+      </div>
+    </div>
+    <div id="seq-messages">
+      <div style="font-size:12px;color:var(--t3);text-align:center;padding:20px">Enter a clinic name and click Generate →</div>
+    </div>
+    <div style="margin-top:10px;padding:12px;background:var(--surf);border-radius:var(--r);font-size:12px;color:var(--t2)">
+      <span style="font-weight:600;color:var(--t1)">Day 14 — Final close:</span> "Hi Doctor, last message from my side 🙏 If you ever want a website for your clinic, I'm here. Good luck! — Abhi · Aurelis"
     </div>
   </div>
 </div>
 
-<!-- SCRIPTS LIBRARY TAB -->
+<!-- SCRIPTS LIBRARY -->
 <div class="tab" id="tab-scripts">
   <div class="card">
-    <div class="ch"><div><div class="ct">WhatsApp scripts library</div><div class="cs">Copy-ready messages for every situation</div></div></div>
+    <div class="ch"><div><div class="ct">WhatsApp scripts</div><div class="cs">Copy-ready for every situation</div></div></div>
     <div id="scripts-list"></div>
   </div>
   <div class="card">
-    <div class="ct" style="margin-bottom:10px">Instagram DM scripts</div>
+    <div class="ct" style="margin-bottom:12px">Instagram DM scripts</div>
     <div id="ig-scripts"></div>
   </div>
   <div class="card">
-    <div class="ct" style="margin-bottom:10px">Email templates</div>
+    <div class="ct" style="margin-bottom:12px">Email templates</div>
     <div id="email-scripts"></div>
   </div>
 </div>
@@ -292,46 +307,45 @@ const LEADS=[
   {name:'Modern Dental Clinic',doc:'Dr. Pooja Singh',area:'Manish Nagar',phone:'9876008901',rating:4.0,web:'Old site',source:'Practo',status:'new',score:67,last:'Found · not contacted'},
 ];
 
-const WA_MSGS={
+const WA={
   noweb:{
-    d1:(c,doc,brand)=>`Hi ${doc} 🙏\n\nMaine Google par ${c} search kiya — aapka clinic bahut accha lag raha hai aur reviews bhi positive hain.\n\nLekin maine notice kiya ki aapka koi website nahi hai. Aajkal patients online search karke hi clinic choose karte hain — ek professional website se aapko bahut zyada new patients mil sakte hain.\n\nMain Nagpur ke clinics ke liye websites banata hoon. Ek demo already bana rakha hai dental clinic ke liye — 2 minute mein dekh sakte hain?\n\n— ${brand}`,
-    d3:(c,doc,brand)=>`Hi ${doc} 🙏\n\nJust following up on my last message. Maine ${c} ke liye ek free demo website prepare ki hai — aapko purchase karne ki zaroorat nahi, sirf ek baar dekh lijiye.\n\nLink share karoon?\n\n— ${brand}`,
+    d1:(c,d,b)=>`Hi ${d} 🙏\n\nMaine Google par ${c} search kiya — aapka clinic bahut accha lag raha hai aur reviews bhi positive hain.\n\nLekin maine notice kiya ki aapka koi website nahi hai. Aajkal patients online search karke hi clinic choose karte hain — ek professional website se aapko bahut zyada new patients mil sakte hain.\n\nMain Nagpur ke clinics ke liye websites banata hoon. Ek demo already bana rakha hai dental clinic ke liye — 2 minute mein dekh sakte hain?\n\n— ${b}`,
+    d3:(c,d,b)=>`Hi ${d} 🙏\n\nJust following up on my last message. Maine ${c} ke liye ek free demo website prepare ki hai — aapko purchase karne ki zaroorat nahi, sirf ek baar dekh lijiye.\n\nLink share karoon?\n\n— ${b}`,
   },
   oldweb:{
-    d1:(c,doc,brand)=>`Hi ${doc} 🙏\n\n${c} ki website dekhi — aapka kaam clearly accha hai, patients bhi satisfied hain. Lekin website ka first impression thoda purana lag raha hai jo new patients ko rok sakta hai.\n\nMain Nagpur ke clinics ke liye modern websites banata hoon — 3 din mein deliver karta hoon. Kya main ek redesign demo share karoon?\n\n— ${brand}`,
-    d3:(c,doc,brand)=>`Hi ${doc}! Pichli baar message kiya tha regarding ${c} ki website update ke baare mein.\n\nEk quick demo teyar kiya hai — sirf 2 min ka hai. Share karoon?\n\n— ${brand}`,
+    d1:(c,d,b)=>`Hi ${d} 🙏\n\n${c} ki website dekhi — aapka kaam clearly accha hai. Lekin website ka first impression thoda purana lag raha hai jo new patients ko rok sakta hai.\n\nMain Nagpur ke clinics ke liye modern websites banata hoon — 3 din mein deliver karta hoon. Kya main ek redesign demo share karoon?\n\n— ${b}`,
+    d3:(c,d,b)=>`Hi ${d}! Pichli baar message kiya tha regarding ${c} ki website update. Ek quick demo teyar kiya hai — sirf 2 min ka hai. Share karoon?\n\n— ${b}`,
   },
   noig:{
-    d1:(c,doc,brand)=>`Hi ${doc} 🙏\n\nInstagram par "${c}" search kiya — koi profile nahi mili. Aapke jaise established clinic ke liye yeh ek missed opportunity hai — bahut saare patients Instagram se clinics dhundte hain Nagpur mein.\n\nMain website + online presence setup karta hoon clinics ke liye. Kya ek baar baat kar sakte hain?\n\n— ${brand}`,
-    d3:(c,doc,brand)=>`Hello ${doc}! Following up — aapke clinic ke liye ek website demo bana diya hai. No obligation — sirf ek baar dekhna chahenge?\n\n— ${brand}`,
+    d1:(c,d,b)=>`Hi ${d} 🙏\n\nInstagram par "${c}" search kiya — koi profile nahi mili. Bahut saare patients Instagram se clinics dhundte hain Nagpur mein.\n\nMain website + online presence setup karta hoon clinics ke liye. Ek baar baat kar sakte hain?\n\n— ${b}`,
+    d3:(c,d,b)=>`Hello ${d}! Following up — aapke clinic ke liye ek website demo bana diya hai. No obligation — sirf ek baar dekhna chahenge?\n\n— ${b}`,
   },
   lowrev:{
-    d1:(c,doc,brand)=>`Hi ${doc} 🙏\n\n${c} ke baare mein online search kiya — clinic clearly acchi hai. Ek professional website add ho jaye toh Google par aur zyada patients reach karenge aur reviews bhi improve hote hain.\n\nMain Nagpur ke clinics ke liye affordable websites banata hoon. Ek free demo dikhao?\n\n— ${brand}`,
-    d3:(c,doc,brand)=>`Hi ${doc}! Pehle message kiya tha. Maine ${c} ke liye specifically ek demo page bana diya hai — share kar sakta hoon?\n\n— ${brand}`,
+    d1:(c,d,b)=>`Hi ${d} 🙏\n\n${c} ke baare mein online search kiya — clinic clearly acchi hai. Ek professional website add ho jaye toh Google par aur zyada patients reach karenge.\n\nMain Nagpur ke clinics ke liye affordable websites banata hoon. Ek free demo dikhao?\n\n— ${b}`,
+    d3:(c,d,b)=>`Hi ${d}! Maine ${c} ke liye specifically ek demo page bana diya hai — share kar sakta hoon?\n\n— ${b}`,
   },
 };
 
-const IG_MSGS={
-  noweb:(c,doc,brand)=>`Hey ${doc}! 👋 ${c} ka profile dekha — bahut accha kaam lag raha hai.\n\nNoticed ki website nahi hai abhi. Main dental clinics ke liye websites banata hoon specifically Nagpur mein — would love to show you a quick demo. Can I send it over?`,
-  oldweb:(c,doc,brand)=>`Hey ${doc}! Loved what I saw about ${c}. Quick question — are you happy with your current website? I build modern clinic websites for Nagpur doctors. Have a demo to show — interested? 🙏`,
+const IG={
+  noweb:(c,d,b)=>`Hey ${d}! 👋 ${c} ka profile dekha — bahut accha kaam lag raha hai.\n\nNoticed ki website nahi hai abhi. Main dental clinics ke liye websites banata hoon specifically Nagpur mein — would love to show you a quick demo. Can I send it over?`,
+  oldweb:(c,d,b)=>`Hey ${d}! Loved what I saw about ${c}. Quick question — are you happy with your current website? I build modern clinic websites for Nagpur doctors. Have a demo to show — interested? 🙏`,
 };
 
-const EMAIL_MSGS={
-  noweb:(c,doc,brand)=>`Subject: Free website demo for ${c}\n\nHello ${doc},\n\nI came across ${c} online and noticed you don't have a website yet. In today's market, patients search online before choosing a clinic — even word-of-mouth referrals Google you first.\n\nI build professional websites specifically for clinics in Nagpur. I've already prepared a free demo for a clinic in your category. It takes 2 minutes to review and there's no commitment.\n\nWould you like me to send it over?\n\nBest regards,\n${brand}`,
+const EMAIL={
+  noweb:(c,d,b)=>`Subject: Free website demo for ${c}\n\nHello ${d},\n\nI came across ${c} online and noticed you don't have a website yet. Patients in Nagpur increasingly search online before choosing a clinic — even referrals Google you first.\n\nI build professional websites specifically for clinics in Nagpur. I've prepared a free demo for your category — no commitment, just 2 minutes to review.\n\nWould you like me to send it over?\n\nBest regards,\n${b}`,
 };
 
 let activePill='wa';
-const pills={wa:'WhatsApp',ig:'Instagram DM',email:'Email'};
 
 function go(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   document.getElementById('tab-'+id).classList.add('on');
   if(el)el.classList.add('on');
-  const titles={scraper:'Lead scraper',leads:'Lead list',builder:'Message builder',sequence:'Follow-up sequence',scripts:'Scripts library'};
-  const subs={scraper:'Find clinic prospects in Nagpur',leads:'All your leads in one place',builder:'Personalised outreach for each clinic',sequence:'4-touch follow-up campaign',scripts:'Copy-ready messages'};
-  document.getElementById('ttitle').textContent=titles[id]||id;
-  document.getElementById('tsub').textContent=subs[id]||'';
+  const T={scraper:'Lead scraper',leads:'Lead list',builder:'Message builder',sequence:'Follow-up sequence',scripts:'Scripts library'};
+  const S={scraper:'Find clinic prospects in Nagpur',leads:'All your leads in one place',builder:'Personalised outreach for each clinic',sequence:'4-touch follow-up campaign',scripts:'Copy-ready messages for every situation'};
+  document.getElementById('ttitle').textContent=T[id]||id;
+  document.getElementById('tsub').textContent=S[id]||'';
   if(id==='leads')renderLeadList();
   if(id==='scripts')renderScripts();
 }
@@ -345,49 +359,33 @@ function setPill(el,type){
 function genQueries(){
   const niche=document.getElementById('s-niche').value;
   const area=document.getElementById('s-area').value;
-  const source=document.getElementById('s-source').value;
   const areaStr=area==='All areas'?'Nagpur':area+' Nagpur';
-  const qs=[
-    `${niche} ${areaStr}`,
-    `${niche} near ${areaStr}`,
-    `best ${niche} in ${areaStr}`,
-    `${niche} ${areaStr} no website`,
-    `#${niche.replace(/ /g,'')}nagpur`,
-  ];
+  const qs=[`${niche} ${areaStr}`,`${niche} near ${areaStr}`,`best ${niche} in ${areaStr}`,`${niche} ${areaStr} no website`,`#${niche.replace(/ /g,'')}nagpur`];
   document.getElementById('query-card').style.display='block';
   document.getElementById('query-list').innerHTML=qs.map(q=>`
     <div class="query-chip" onclick="copyText('${q}',this)">
       <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="9" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 3V2a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-1" stroke="currentColor" stroke-width="1.1"/></svg>
       ${q}
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function genLeads(){
-  const niche=document.getElementById('s-niche').value;
-  const area=document.getElementById('s-area').value;
   const cnt=parseInt(document.getElementById('s-count').value)||10;
   const filtered=LEADS.slice(0,Math.min(cnt,LEADS.length));
   document.getElementById('leads-preview').style.display='block';
   document.getElementById('leads-title').textContent=filtered.length+' leads found · sorted by score';
   document.getElementById('leads-table').innerHTML=filtered.map(l=>`
     <tr>
-      <td><div style="font-weight:500;font-size:12px">${l.name}</div><div style="font-size:10px;color:var(--color-text-tertiary)">${l.doc}</div></td>
-      <td>${l.area}</td>
-      <td><a href="tel:${l.phone}" style="font-size:11px;color:var(--color-text-info);text-decoration:none">${l.phone}</a></td>
+      <td><div style="font-weight:600;font-size:12px">${l.name}</div><div style="font-size:10px;color:var(--t3)">${l.doc}</div></td>
+      <td style="font-size:12px">${l.area}</td>
+      <td><a href="tel:${l.phone}" style="font-size:11px;color:var(--blue-t);text-decoration:none">${l.phone}</a></td>
       <td><span class="tag ${l.web==='None'?'tg':'ta'}">${l.web}</span></td>
-      <td>
-        <span style="font-size:12px;font-weight:500">${l.score}</span>
-        <span class="score-bar"><span class="score-fill" style="width:${l.score}%"></span></span>
-      </td>
-      <td>
-        <div style="display:flex;gap:4px">
-          <button class="btn wa" style="padding:4px 8px;font-size:10px" onclick="openWA('${l.phone}')">WA</button>
-          <button class="btn p" style="padding:4px 8px;font-size:10px" onclick="quickOutreach('${l.name}','${l.doc}','${l.phone}','${l.web==='None'?'noweb':'oldweb'}')">Draft →</button>
-        </div>
-      </td>
-    </tr>
-  `).join('');
+      <td><span style="font-size:12px;font-weight:600">${l.score}</span><span class="score-bar"><span class="score-fill" style="width:${l.score}%"></span></span></td>
+      <td><div style="display:flex;gap:4px">
+        <button class="btn wa" style="padding:4px 8px;font-size:10px" onclick="openWA('${l.phone}')">WA</button>
+        <button class="btn p" style="padding:4px 8px;font-size:10px" onclick="quickOutreach('${l.name}','${l.doc}','${l.phone}','${l.web==='None'?'noweb':'oldweb'}')">Draft →</button>
+      </div></td>
+    </tr>`).join('');
 }
 
 function quickOutreach(clinic,doc,phone,pain){
@@ -407,47 +405,39 @@ function buildMessage(){
   const brand=document.getElementById('m-brand').value||'Abhi · Aurelis Digital';
   let html='';
   if(activePill==='wa'){
-    const d1=WA_MSGS[pain].d1(clinic,doc,brand);
-    const d3=WA_MSGS[pain].d3(clinic,doc,brand);
+    const d1=WA[pain].d1(clinic,doc,brand);
+    const d3=WA[pain].d3(clinic,doc,brand);
+    const waUrl=phone?`https://wa.me/91${phone.replace(/\D/g,'').slice(-10)}`:'https://wa.me/';
     html=`
-      <div class="msg-label">Day 1 — First message (WhatsApp)</div>
+      <div class="msg-label">Day 1 — First message · WhatsApp</div>
       <div class="msg-box">${d1.replace(/\n/g,'<br>')}</div>
-      <div style="display:flex;gap:6px;margin-bottom:14px">
-        <button class="btn wa" onclick="openWA('${phone}')">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.6 0 0 3.6 0 8c0 1.4.4 2.8 1 4L0 16l4.2-1c1.2.6 2.5 1 3.8 1 4.4 0 8-3.6 8-8S12.4 0 8 0zm3.6 10.6c-.2.6-1.2 1-2.1 1.2-.7.1-1.5 0-2.3-.3-.7-.3-1.5-.8-2.1-1.5-.7-.7-1.3-1.6-1.6-2.4-.3-.8-.2-1.8.2-2.5.2-.4.6-.6 1-.6h.4c.2 0 .5.1.6.4l.6 1.4c.1.2 0 .5-.2.7l-.4.5c.5.9 1.5 1.7 2.9 2.4l.5-.4c.2-.2.5-.2.7-.1l1.3.8c.4.2.6.4.8.7z"/></svg>
-          Open in WhatsApp
-        </button>
-        <button class="btn" onclick="copyText(\`${d1.replace(/`/g,"'")}\`,this)">Copy message</button>
+      <div style="display:flex;gap:6px;margin-bottom:16px">
+        <a class="btn wa" href="${waUrl}" target="_blank">Open in WhatsApp</a>
+        <button class="btn" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(d1)}">Copy message</button>
       </div>
-      <div class="msg-label">Day 3 — Follow-up (WhatsApp)</div>
+      <div class="msg-label">Day 3 — Follow-up · WhatsApp</div>
       <div class="msg-box">${d3.replace(/\n/g,'<br>')}</div>
       <div style="display:flex;gap:6px">
-        <button class="btn wa" onclick="openWA('${phone}')">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.6 0 0 3.6 0 8c0 1.4.4 2.8 1 4L0 16l4.2-1c1.2.6 2.5 1 3.8 1 4.4 0 8-3.6 8-8S12.4 0 8 0zm3.6 10.6c-.2.6-1.2 1-2.1 1.2-.7.1-1.5 0-2.3-.3-.7-.3-1.5-.8-2.1-1.5-.7-.7-1.3-1.6-1.6-2.4-.3-.8-.2-1.8.2-2.5.2-.4.6-.6 1-.6h.4c.2 0 .5.1.6.4l.6 1.4c.1.2 0 .5-.2.7l-.4.5c.5.9 1.5 1.7 2.9 2.4l.5-.4c.2-.2.5-.2.7-.1l1.3.8c.4.2.6.4.8.7z"/></svg>
-          Open in WhatsApp
-        </button>
-        <button class="btn" onclick="copyText(\`${d3.replace(/`/g,"'")}\`,this)">Copy message</button>
-      </div>
-    `;
+        <a class="btn wa" href="${waUrl}" target="_blank">Open in WhatsApp</a>
+        <button class="btn" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(d3)}">Copy message</button>
+      </div>`;
   } else if(activePill==='ig'){
-    const msg=IG_MSGS[pain]?IG_MSGS[pain](clinic,doc,brand):IG_MSGS.noweb(clinic,doc,brand);
+    const msg=(IG[pain]||IG.noweb)(clinic,doc,brand);
     html=`
       <div class="msg-label">Instagram DM</div>
       <div class="msg-box">${msg.replace(/\n/g,'<br>')}</div>
       <div style="display:flex;gap:6px">
-        <button class="btn ig" onclick="openLink('https://www.instagram.com/direct/new/')">Open Instagram DMs</button>
-        <button class="btn" onclick="copyText(\`${msg.replace(/`/g,"'")}\`,this)">Copy message</button>
-      </div>
-    `;
+        <a class="btn ig" href="https://www.instagram.com/direct/new/" target="_blank">Open Instagram DMs</a>
+        <button class="btn" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(msg)}">Copy message</button>
+      </div>`;
   } else {
-    const msg=EMAIL_MSGS.noweb(clinic,doc,brand);
+    const msg=EMAIL.noweb(clinic,doc,brand);
     html=`
-      <div class="msg-label">Email (copy subject + body)</div>
+      <div class="msg-label">Email — copy subject + body</div>
       <div class="msg-box" style="font-size:12px">${msg.replace(/\n/g,'<br>')}</div>
       <div style="display:flex;gap:6px">
-        <button class="btn em" onclick="copyText(\`${msg.replace(/`/g,"'")}\`,this)">Copy full email</button>
-      </div>
-    `;
+        <button class="btn em" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(msg)}">Copy full email</button>
+      </div>`;
   }
   document.getElementById('msg-panel').innerHTML=`<div class="card">${html}</div>`;
 }
@@ -455,23 +445,19 @@ function buildMessage(){
 function buildSequence(){
   const clinic=document.getElementById('sq-clinic').value||'the clinic';
   const msgs=[
-    {day:'Day 1',ch:'WhatsApp',title:'Cold intro',msg:`Hi Doctor 🙏\n\nMaine online ${clinic} dekha — bahut accha kaam lag raha hai.\n\nNoticed ki website nahi hai abhi. Nagpur mein patients ab Google karke hi clinic choose karte hain. Main dental clinics ke liye websites banata hoon — 3 din mein deliver karta hoon.\n\nEk demo dikhao? No commitment. — Abhi · Aurelis Digital`},
-    {day:'Day 3',ch:'WhatsApp',title:'Free demo follow-up',msg:`Hello Doctor 🙏\n\n${clinic} ke liye ek free demo website bana di hai — aapko kuch khareedna nahi, sirf ek baar dekhna hai.\n\nLink share karoon? — Abhi`},
-    {day:'Day 7',ch:'Instagram DM',title:'Social proof',msg:`Hey! 👋 Just wanted to share — I built a website last week for a dental clinic in Nagpur similar to yours. The doctor got 3 new patient inquiries in the first week from the website alone.\n\nWould love to do the same for ${clinic}. Can I share the demo? 🙏`},
-    {day:'Day 14',ch:'WhatsApp',title:'Final close',msg:`Hi Doctor, last message from my side 🙏\n\nIf you ever decide to get a website for ${clinic}, I'm here. Built one recently for a Nagpur clinic — happy to show anytime.\n\nGood luck with the clinic! — Abhi · Aurelis Digital`},
+    {day:'Day 1',ch:'WhatsApp',title:'Cold intro',cls:'wa',msg:`Hi Doctor 🙏\n\nMaine online ${clinic} dekha — bahut accha kaam lag raha hai.\n\nNoticed ki website nahi hai abhi. Nagpur mein patients ab Google karke hi clinic choose karte hain. Main dental clinics ke liye websites banata hoon — 3 din mein deliver karta hoon.\n\nEk demo dikhao? No commitment. — Abhi · Aurelis Digital`},
+    {day:'Day 3',ch:'WhatsApp',title:'Free demo follow-up',cls:'wa',msg:`Hello Doctor 🙏\n\n${clinic} ke liye ek free demo website bana di hai — aapko kuch khareedna nahi, sirf ek baar dekhna hai.\n\nLink share karoon? — Abhi`},
+    {day:'Day 7',ch:'Instagram DM',title:'Social proof',cls:'ig',msg:`Hey! 👋 Just wanted to share — I built a website last week for a dental clinic in Nagpur similar to yours. The doctor got 3 new patient inquiries in the first week.\n\nWould love to do the same for ${clinic}. Can I share the demo? 🙏`},
+    {day:'Day 14',ch:'WhatsApp',title:'Final close',cls:'wa',msg:`Hi Doctor, last message from my side 🙏\n\nIf you ever decide to get a website for ${clinic}, I'm here. Good luck with the clinic! — Abhi · Aurelis Digital`},
   ];
   document.getElementById('seq-messages').innerHTML=msgs.map(m=>`
     <div class="seq-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <div>
-          <div class="seq-day">${m.day} · ${m.ch}</div>
-          <div class="seq-title">${m.title}</div>
-        </div>
-        <button class="btn ${m.ch==='WhatsApp'?'wa':m.ch==='Instagram DM'?'ig':'em'}" style="font-size:11px;padding:4px 10px" onclick="copyText(\`${m.msg.replace(/`/g,"'")}\`,this)">Copy</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div><div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em">${m.day} · ${m.ch}</div><div style="font-size:13px;font-weight:600;margin-top:2px">${m.title}</div></div>
+        <button class="btn ${m.cls}" style="font-size:11px;padding:5px 10px" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(m.msg)}">Copy</button>
       </div>
-      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;background:var(--color-background-secondary);padding:10px;border-radius:var(--border-radius-md)">${m.msg.replace(/\n/g,'<br>')}</div>
-    </div>
-  `).join('');
+      <div style="font-size:12px;color:var(--t2);line-height:1.65;background:var(--surf);padding:11px;border-radius:var(--r)">${m.msg.replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
 }
 
 function renderLeadList(){
@@ -479,72 +465,58 @@ function renderLeadList(){
   const filtered=filter?LEADS.filter(l=>l.status===filter):LEADS;
   document.getElementById('lead-list-body').innerHTML=filtered.map(l=>`
     <tr>
-      <td><div style="font-weight:500;font-size:12px">${l.name}</div><div style="font-size:10px;color:var(--color-text-tertiary)">${l.doc}</div></td>
+      <td><div style="font-weight:600;font-size:12px">${l.name}</div><div style="font-size:10px;color:var(--t3)">${l.doc}</div></td>
       <td style="font-size:12px">${l.area}</td>
       <td><span class="tag ${l.status==='hot'?'tr':l.status==='warm'?'ta':l.status==='closed'?'tg':'tb2'}">${l.status}</span></td>
-      <td>
-        <span style="font-size:12px;font-weight:500">${l.score}</span>
-        <span class="score-bar"><span class="score-fill" style="width:${l.score}%"></span></span>
-      </td>
-      <td style="font-size:11px;color:var(--color-text-tertiary)">${l.last}</td>
-      <td>
-        <div style="display:flex;gap:4px">
-          <button class="btn wa" style="font-size:10px;padding:4px 8px" onclick="openWA('${l.phone}')">WA</button>
-          <button class="btn ig" style="font-size:10px;padding:4px 8px" onclick="openLink('https://instagram.com')">IG</button>
-          <button class="btn p" style="font-size:10px;padding:4px 8px" onclick="quickOutreach('${l.name}','${l.doc}','${l.phone}','noweb')">Draft</button>
-        </div>
-      </td>
-    </tr>
-  `).join('');
+      <td><span style="font-size:12px;font-weight:600">${l.score}</span><span class="score-bar"><span class="score-fill" style="width:${l.score}%"></span></span></td>
+      <td style="font-size:11px;color:var(--t3)">${l.last}</td>
+      <td><div style="display:flex;gap:4px">
+        <button class="btn wa" style="font-size:10px;padding:4px 8px" onclick="openWA('${l.phone}')">WA</button>
+        <a class="btn ig" style="font-size:10px;padding:4px 8px;text-decoration:none" href="https://instagram.com" target="_blank">IG</a>
+        <button class="btn p" style="font-size:10px;padding:4px 8px" onclick="quickOutreach('${l.name}','${l.doc}','${l.phone}','noweb')">Draft</button>
+      </div></td>
+    </tr>`).join('');
 }
 
 function renderScripts(){
   const waScripts=[
     {title:'Cold — no website',tag:'Cold',msg:`Hi Doctor 🙏\n\nMaine aapka clinic Google par dekha — patients ke reviews bahut acche hain. Lekin maine notice kiya ki website nahi hai.\n\nMain Nagpur ke clinics ke liye professional websites banata hoon — ek demo dikhao? No commitment. — Abhi · Aurelis Digital`},
     {title:'Warm — they replied "interested"',tag:'Warm',msg:`Thank you Doctor 🙏\n\nBahut khushi hui aapka reply dekhke. Main aapko ek demo link share karta hoon — aap dekh lijiye.\n\nHamara Starter package ₹8,000 se start hota hai aur 3 din mein deliver hota hai. Koi bhi question ho toh batayein!`},
-    {title:'Reply to "how much does it cost?"',tag:'Pricing',msg:`Doctor, hamare 3 packages hain:\n\n✅ Starter – ₹8,000 (5 pages, 3 days)\n✅ Growth – ₹15,000 (+ booking form, gallery, SEO)\n✅ Premium – ₹25,000 (+ AI video ad, 3 months support)\n\nSabse popular Growth hai — clinics ko 2-3 new patients pehle hafte mein mil jaate hain. Demo dekhen?\n\n— Abhi · Aurelis Digital`},
+    {title:'Reply to "how much does it cost?"',tag:'Pricing',msg:`Doctor, hamare 3 packages hain:\n\n✅ Starter – ₹8,000 (5 pages, 3 days)\n✅ Growth – ₹15,000 (+ booking form, gallery, SEO)\n✅ Premium – ₹25,000 (+ AI video ad, 3 months support)\n\nSabse popular Growth hai. Demo dekhen?\n\n— Abhi · Aurelis Digital`},
     {title:'Objection — "already have a website"',tag:'Objection',msg:`Understood Doctor 🙏 Aapki website zaroor dekhunga.\n\nKaafi clinics jo mere paas aate hain unke paas website hoti hai, lekin woh convert nahi karti — no WhatsApp button, no booking form, poor mobile experience.\n\nEk quick demo dikhao — aapko lagega toh aage baat karte hain. Free hai. — Abhi`},
-    {title:'After 7 days — no reply',tag:'Follow-up',msg:`Hi Doctor, last follow-up 🙏\n\n${new Date().toLocaleDateString('en-IN')} tak ka ek special offer tha aapke liye. Agar aage kabhi website chahiye toh main hoon.\n\nGood luck with the clinic! — Abhi · Aurelis`},
+    {title:'After 7 days — no reply',tag:'Follow-up',msg:`Hi Doctor, last follow-up 🙏\n\nAgar aage kabhi website chahiye toh main hoon. Good luck with the clinic! — Abhi · Aurelis`},
   ];
   document.getElementById('scripts-list').innerHTML=waScripts.map(s=>`
-    <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;margin-bottom:8px">
+    <div style="border:1px solid var(--b);border-radius:var(--r);padding:13px;margin-bottom:10px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">${s.title}</span>
-          <span class="tag ts">${s.tag}</span>
-        </div>
-        <button class="btn wa" style="font-size:11px;padding:4px 10px" onclick="copyText(\`${s.msg.replace(/`/g,"'")}\`,this)">Copy</button>
+        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600">${s.title}</span><span class="tag ts">${s.tag}</span></div>
+        <button class="btn wa" style="font-size:11px;padding:5px 10px" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(s.msg)}">Copy</button>
       </div>
-      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;background:var(--color-background-secondary);padding:10px;border-radius:var(--border-radius-md)">${s.msg.replace(/\n/g,'<br>')}</div>
-    </div>
-  `).join('');
+      <div style="font-size:12px;color:var(--t2);line-height:1.65;background:var(--surf);padding:11px;border-radius:var(--r)">${s.msg.replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
 
-  const igScripts=[
+  document.getElementById('ig-scripts').innerHTML=[
     {title:'Cold DM — no website',msg:`Hey! 👋 Found your clinic online — the patient reviews are great. Noticed you don't have a website yet though. I build affordable websites for clinics in Nagpur. Can I send you a quick demo? 🙏`},
-    {title:'Comment → DM transition',msg:`Hey Doctor! Saw your post about [treatment] — really helpful content. I help clinics like yours get more patients through professional websites. Would you be open to a quick demo? 🙏`},
-  ];
-  document.getElementById('ig-scripts').innerHTML=igScripts.map(s=>`
-    <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;margin-bottom:8px">
+    {title:'Comment → DM transition',msg:`Hey Doctor! Saw your post — really helpful content. I help clinics like yours get more patients through professional websites. Would you be open to a quick demo? 🙏`},
+  ].map(s=>`
+    <div style="border:1px solid var(--b);border-radius:var(--r);padding:13px;margin-bottom:10px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <span style="font-size:13px;font-weight:500">${s.title}</span>
-        <button class="btn ig" style="font-size:11px;padding:4px 10px" onclick="copyText(\`${s.msg.replace(/`/g,"'")}\`,this)">Copy</button>
+        <span style="font-size:13px;font-weight:600">${s.title}</span>
+        <button class="btn ig" style="font-size:11px;padding:5px 10px" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(s.msg)}">Copy</button>
       </div>
-      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;background:var(--color-background-secondary);padding:10px;border-radius:var(--border-radius-md)">${s.msg}</div>
-    </div>
-  `).join('');
+      <div style="font-size:12px;color:var(--t2);line-height:1.65;background:var(--surf);padding:11px;border-radius:var(--r)">${s.msg}</div>
+    </div>`).join('');
 
-  const emailScripts=[
-    {title:'Cold email — no website',msg:`Subject: Free website demo for your clinic\n\nHello Doctor,\n\nI came across your clinic online and noticed you don't have a website yet. Patients in Nagpur increasingly search online before choosing a clinic — even referrals Google you first.\n\nI build professional websites for clinics in Nagpur. I've prepared a free demo for your category — no commitment, just 2 minutes to review.\n\nCan I send it over?\n\nBest,\nAbhi · Aurelis Digital`},
-  ];
-  document.getElementById('email-scripts').innerHTML=emailScripts.map(s=>`
-    <div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px;margin-bottom:8px">
+  document.getElementById('email-scripts').innerHTML=[
+    {title:'Cold email — no website',msg:`Subject: Free website demo for your clinic\n\nHello Doctor,\n\nI came across your clinic online and noticed you don't have a website yet. Patients in Nagpur increasingly search online before choosing a clinic.\n\nI build professional websites for clinics in Nagpur. I've prepared a free demo — no commitment, just 2 minutes to review.\n\nCan I send it over?\n\nBest,\nAbhi · Aurelis Digital`},
+  ].map(s=>`
+    <div style="border:1px solid var(--b);border-radius:var(--r);padding:13px;margin-bottom:10px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <span style="font-size:13px;font-weight:500">${s.title}</span>
-        <button class="btn em" style="font-size:11px;padding:4px 10px" onclick="copyText(\`${s.msg.replace(/`/g,"'")}\`,this)">Copy</button>
+        <span style="font-size:13px;font-weight:600">${s.title}</span>
+        <button class="btn em" style="font-size:11px;padding:5px 10px" onclick="copyText(this.dataset.msg,this)" data-msg="${encodeURIComponent(s.msg)}">Copy</button>
       </div>
-      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.6;background:var(--color-background-secondary);padding:10px;border-radius:var(--border-radius-md)">${s.msg.replace(/\n/g,'<br>')}</div>
-    </div>
-  `).join('');
+      <div style="font-size:12px;color:var(--t2);line-height:1.65;background:var(--surf);padding:11px;border-radius:var(--r)">${s.msg.replace(/\n/g,'<br>')}</div>
+    </div>`).join('');
 }
 
 function openWA(phone){
@@ -554,31 +526,24 @@ function openWA(phone){
 }
 
 function copyText(text,btn){
-  navigator.clipboard.writeText(text).then(()=>{
-    const orig=btn.textContent;
-    btn.textContent='Copied!';
-    btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied')},2000);
-  }).catch(()=>{
+  const decoded=decodeURIComponent(text);
+  navigator.clipboard.writeText(decoded).catch(()=>{
     const ta=document.createElement('textarea');
-    ta.value=text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    const orig=btn.textContent;
-    btn.textContent='Copied!';
-    btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied')},2000);
+    ta.value=decoded;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
   });
+  const orig=btn.innerHTML;
+  btn.textContent='Copied ✓';btn.classList.add('copied');
+  setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove('copied')},2000);
 }
 
 function exportCSV(){
   const rows=[['Clinic','Doctor','Area','Phone','Rating','Website','Score','Status'],...LEADS.map(l=>[l.name,l.doc,l.area,l.phone,l.rating,l.web,l.score,l.status])];
-  const csv=rows.map(r=>r.join(',')).join('\n');
+  const csv=rows.map(r=>r.map(v=>'"'+v+'"').join(',')).join('\n');
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='aurelis-leads-nagpur.csv';
-  a.click();
+  a.download='aurelis-leads-nagpur.csv';a.click();
 }
 </script>
+</body>
+</html>
